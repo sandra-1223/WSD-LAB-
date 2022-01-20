@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Recruiter Details</title>
+
+    <!-- CSS -->
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url("../frontend/font/Montserrat-Regular.ttf");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            font-family: 'Montserrat';
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            background-color: #333333;
+            padding: 1%;
+        }
+
+        table {
+            background-color: #e3e3e3;
+            margin: 2% 5%;
+            width: 90%;
+        }
+
+        td,
+        th {
+            text-align: left;
+            padding: 2%;
+        }
+
+        .button {
+            border-radius: 12px;
+        }
+    </style>
+
+    <!--JavaScript-->
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+
+                // Request finished and response 
+                // is ready and Status is "OK"
+                if (this.readyState == 4 && this.status == 200) {
+                    empDetails(this);
+                }
+            };
+
+            // employee.xml is the external xml file
+            xmlhttp.open("GET", "employee.xml", true);
+            xmlhttp.send();
+        }
+
+        function empDetails(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var table =
+                `<tr><th>Firstname</th><th>Lastname</th>
+                    <th>User Type</th><th>Department</th>
+                    <th>Email Id</th><th>Gender</th><th>Contact No</th>
+                </tr>`;
+
+            var x = xmlDoc.getElementsByTagName("employee");
+
+
+            // Start to fetch the data by using TagName 
+            for (i = 0; i < x.length; i++) {
+                table += "<tr><td>" +
+                    x[i].getElementsByTagName("firstname")[0]
+                        .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("lastname")[0]
+                        .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("title")[0]
+                        .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("division")[0]
+                        .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("email")[0]
+                        .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("gender")[0]
+                        .childNodes[0].nodeValue + "</td><td>" +
+                    x[i].getElementsByTagName("number")[0]
+                        .childNodes[0].nodeValue + "</td></tr>";
+            }
+
+            // Print the xml data in table form
+            document.getElementById("id").innerHTML = table;
+        }
+
+    </script>
+</head>
+
+<body>
+    <center>
+        <button type="button" class="button" onclick="loadXMLDoc()">
+            <h1>Recruiter Details</h1>
+        </button>
+    </center>
+
+    <br><br>
+    <table id="id"></table>
+
+    <center><br>
+        <button>
+            <a href="http://127.0.0.1:5500/manipulate.html">Do you want to perform operations ?</a></button>
+    </center><br><br>
+</body>
+
+</html>
