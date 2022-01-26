@@ -1,0 +1,147 @@
+<html>
+
+<head>
+	<title>Register</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<style>
+		.jumbotron {
+			background-color: white;
+			position: absolute;
+			padding: 14px 20px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 50%;
+			box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+		}
+	</style>
+	<script>
+		function display() {
+			var a = document.forms[0].name.value;
+			if (a == "") {
+				alert("Name must be filled out");
+			}
+			var m = document.forms[0].email.value;
+			if (m.indexOf("@", 0) < 0) {
+				alert("Email must be filled out");
+			}
+			var n = document.forms[0].phone.value;
+			if (n == "") {
+				alert("Phone number must be filled out");
+			}
+		}
+		function psw() {
+			var p = document.forms[0].password.value;
+			var cp = document.forms[0].cfpassword.value;
+			if (p != cp) {
+				alert("Enter same password");
+			}
+		}
+	</script>
+</head>
+
+<body style="background-color:#ecf0f1;">
+	<div class="jumbotron">
+		<div class="container">
+			<form class="form-horizontal" onsubmit="display()">
+				<p>Registration Form</p>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Name: </label>
+					<div class="col-sm-10">
+						<input type="Text" class="form-control" name="name" size="50%" placeholder="Name"
+							oninput="allow_alphabets(this)">
+						<script>
+							function allow_alphabets(element) {
+								let textInput = element.value;
+								textInput = textInput.replace(/[^A-Za-z ]*$/gm, "");
+								element.value = textInput;
+							}
+						</script>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Email: </label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" size="50%" name="email" required
+							onblur="validatemail(this);" placeholder="Email address">
+						<script>
+							function validatemail(email) {
+								var reg = new RegExp('[a-z0-9]+@baseline.com');
+								if (reg.test(email.value) == false) {
+									alert('Invalid Email Id');
+									return false;
+								}
+								return true;
+							}
+						</script>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Password: </label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" size="50%" onscroll="validatepassword(this);"
+							name="password" required placeholder="Password">
+						<script>
+							function validatepassword(password) {
+								var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+								if (reg.test(password.value) == false) {
+									alert('Invalid Password');
+									return false;
+								}
+								return true;
+							}
+						</script>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Confirm Password: </label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" size="50%" name="cfpassword" required
+							placeholder="Confirm Password" onmouseout="psw()">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Phone: </label>
+					<div class="col-sm-10">
+						<input type="text" maxlength="10" pattern="\d{10}" class="form-control" name="phone" size="50%"
+							required oninput="allow_numeric(this)" placeholder="Phone Number">
+						<script>
+							function allow_numeric(element) {
+								let textInput = element.value;
+								textInput = textInput.replace(/[^0-9 ]*$/gm, "");
+								element.value = textInput;
+							}
+						</script>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">D-O-B: </label>
+					<div class="col-sm-10">
+						<input type="Date" class="form-control" size="50%" name="date" required
+							placeholder=" Date of Birth" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Gender: </label>
+					<div class="col-sm-10">
+						<label><input type="Radio" value="Male" name="gen" size="20%">&nbsp Male</label>
+						<label><input type="Radio" value="Female" name="gen" size="20%">&nbsp Female</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Profile Pic: </label>
+					<div class="col-sm-10">
+						<input type="file" class="form-control" size="50%" required placeholder=" Profile Picture"
+							name="propic">
+					</div>
+				</div>
+				<center>
+					<input type="submit" class="btn btn-danger">
+				</center>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
